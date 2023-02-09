@@ -1,13 +1,13 @@
-package org.vitargo.springsecurityproject;
+package org.vitargo.springsecuritydefault;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecurityProjectApplication {
+public class SpringSecurityDefaultApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringSecurityProjectApplication.class, args);
+        SpringApplication.run(SpringSecurityDefaultApplication.class, args);
     }
 
 }
