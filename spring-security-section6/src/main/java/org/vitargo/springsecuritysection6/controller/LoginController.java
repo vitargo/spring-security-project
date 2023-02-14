@@ -1,5 +1,6 @@
 package org.vitargo.springsecuritysection6.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class LoginController {
 
     private final CustomerRepository customerRepository;
@@ -51,6 +53,7 @@ public class LoginController {
 
     @RequestMapping("/user")
     public Customer getUserDetailsAfterLogin(Authentication authentication) {
+        log.info("LoginController");
         List<Customer> customers = customerRepository.findCustomerByEmail(authentication.getName());
         if (customers.size() > 0) {
             return customers.get(0);
