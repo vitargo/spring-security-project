@@ -183,16 +183,16 @@ CREATE TABLE authorities (
 );
 
 INSERT INTO authorities (customer_id, name)
-VALUES (7, 'VIEWACCOUNT');
+VALUES (1, 'VIEWACCOUNT');
 
 INSERT INTO authorities (customer_id, name)
-VALUES (7, 'VIEWCARDS');
+VALUES (1, 'VIEWCARDS');
 
 INSERT INTO authorities (customer_id, name)
-VALUES (7, 'VIEWLOANS');
+VALUES (1, 'VIEWLOANS');
 
 INSERT INTO authorities (customer_id, name)
-VALUES (7, 'VIEWBALANCE');
+VALUES (1, 'VIEWBALANCE');
 
 DELETE FROM authorities;
 
