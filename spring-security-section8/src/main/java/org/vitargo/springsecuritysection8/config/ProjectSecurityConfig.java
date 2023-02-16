@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.vitargo.springsecuritysection8.filter.AuthoritiesLoggingAfterFilter;
+import org.vitargo.springsecuritysection8.filter.AuthoritiesLoggingAtFilter;
 import org.vitargo.springsecuritysection8.filter.RequestValidationBeforeFilter;
 
 import java.util.Collections;
@@ -34,6 +36,8 @@ public class ProjectSecurityConfig {
                 }).and().csrf()
                 .ignoringRequestMatchers("/contact", "/register").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(),BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/account").hasRole("USER")
                 .requestMatchers("/balance").hasAnyRole("USER", "ADMIN")
