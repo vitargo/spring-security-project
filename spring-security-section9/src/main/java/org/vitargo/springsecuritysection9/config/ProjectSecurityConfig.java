@@ -12,10 +12,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.vitargo.springsecuritysection9.filter.AuthoritiesLoggingAfterFilter;
-import org.vitargo.springsecuritysection9.filter.AuthoritiesLoggingAtFilter;
-import org.vitargo.springsecuritysection9.filter.RequestValidationBeforeFilter;
+import org.vitargo.springsecuritysection9.filter.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -33,6 +32,7 @@ public class ProjectSecurityConfig {
                         config.setAllowedHeaders(Collections.singletonList("*"));
                         config.setAllowCredentials(true);
                         config.setMaxAge(3600L);
+                        config.setExposedHeaders(Arrays.asList("Authorization"));
                         return config;
                     }
                 }).and().csrf()
@@ -40,6 +40,8 @@ public class ProjectSecurityConfig {
                 .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(new AuthoritiesLoggingAtFilter(),BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/account").hasRole("USER")
                 .requestMatchers("/balance").hasAnyRole("USER", "ADMIN")
